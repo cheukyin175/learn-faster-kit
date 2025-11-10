@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "learn-faster"
+version = "1.0.0"
+description = "Learn FASTER: Accelerate learning with spaced repetition, active practice, and teaching-based retention"
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [
+    { name = "Hugo", email = "hugo@example.com" }
+]
+keywords = ["learning", "education", "spaced-repetition", "claude", "ai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "Topic :: Education",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+[project.scripts]
+learn-faster = "learn_faster.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/learn-faster"
+Repository = "https://github.com/yourusername/learn-faster"
+Issues = "https://github.com/yourusername/learn-faster/issues"
+
+[tool.uv]
+dev-dependencies = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/learn_faster"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/learn_faster/templates" = "learn_faster/templates"
