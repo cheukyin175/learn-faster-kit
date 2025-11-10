@@ -13,6 +13,58 @@ from pathlib import Path
 from typing import Dict, Any
 
 
+# ANSI color codes
+class Colors:
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    DIM = "\033[2m"
+
+    # Colors
+    RED = "\033[91m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    BLUE = "\033[94m"
+    MAGENTA = "\033[95m"
+    CYAN = "\033[96m"
+    WHITE = "\033[97m"
+    GRAY = "\033[90m"
+
+
+BANNER = f"""{Colors.CYAN}
+██╗     ███████╗ █████╗ ██████╗ ███╗   ██╗    ███████╗ █████╗ ███████╗████████╗███████╗██████╗
+██║     ██╔════╝██╔══██╗██╔══██╗████╗  ██║    ██╔════╝██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗
+██║     █████╗  ███████║██████╔╝██╔██╗ ██║    █████╗  ███████║███████╗   ██║   █████╗  ██████╔╝
+██║     ██╔══╝  ██╔══██║██╔══██╗██║╚██╗██║    ██╔══╝  ██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗
+███████╗███████╗██║  ██║██║  ██║██║ ╚████║    ██║     ██║  ██║███████║   ██║   ███████╗██║  ██║
+╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
+{Colors.RESET}"""
+
+
+def print_success(msg: str) -> None:
+    """Print success message in green."""
+    print(f"{Colors.GREEN}✓{Colors.RESET} {msg}")
+
+
+def print_info(msg: str) -> None:
+    """Print info message in cyan."""
+    print(f"{Colors.CYAN}{msg}{Colors.RESET}")
+
+
+def print_warning(msg: str) -> None:
+    """Print warning message in yellow."""
+    print(f"{Colors.YELLOW}!{Colors.RESET} {msg}")
+
+
+def print_header(msg: str) -> None:
+    """Print header message in bold magenta."""
+    print(f"{Colors.BOLD}{Colors.MAGENTA}{msg}{Colors.RESET}")
+
+
+def print_dim(msg: str) -> None:
+    """Print dimmed message."""
+    print(f"{Colors.DIM}{msg}{Colors.RESET}")
+
+
 def get_templates_dir() -> Path:
     """Get the templates directory from the installed package."""
     return Path(__file__).parent.parent / "templates"
@@ -57,11 +109,11 @@ def create_or_update_settings(claude_dir: Path) -> None:
                 if perm not in settings["permissions"]["allow"]:
                     settings["permissions"]["allow"].append(perm)
 
-        print(f"✓ Updated {settings_file}")
+        print_success(f"Updated {settings_file}")
     else:
         # Create new settings file
         settings = default_settings
-        print(f"✓ Created {settings_file}")
+        print_success(f"Created {settings_file}")
 
     # Write settings
     with open(settings_file, "w") as f:
@@ -75,12 +127,13 @@ def init_project() -> None:
     cwd = Path.cwd()
     templates_dir = get_templates_dir()
 
-    print("🚀 Initializing Learn FASTER in current project...\n")
+    print(BANNER)
+    print_header("\nInitializing Learn FASTER in current project...\n")
 
     # Ask about macOS Reminders (only on macOS)
     macos_reminders = False
     if platform.system() == "Darwin":
-        response = input("📅 Enable macOS Reminders for review notifications? (y/n): ").strip().lower()
+        response = input(f"{Colors.CYAN}Enable macOS Reminders for review notifications? (y/n):{Colors.RESET} ").strip().lower()
         macos_reminders = response in ['y', 'yes']
 
     # Create .claude directory structure
@@ -94,7 +147,7 @@ def init_project() -> None:
     if agents_src.exists():
         for file in agents_src.glob("*.md"):
             shutil.copy2(file, agents_dest / file.name)
-            print(f"✓ Copied agent: {file.name}")
+            print_success(f"Copied agent: {file.name}")
 
     # Copy output styles
     styles_dest = claude_dir / "output-styles"
@@ -103,7 +156,7 @@ def init_project() -> None:
     if styles_src.exists():
         for file in styles_src.glob("*.md"):
             shutil.copy2(file, styles_dest / file.name)
-            print(f"✓ Copied output style: {file.name}")
+            print_success(f"Copied output style: {file.name}")
 
     # Copy commands
     commands_dest = claude_dir / "commands"
@@ -112,7 +165,7 @@ def init_project() -> None:
     if commands_src.exists():
         for file in commands_src.glob("*.md"):
             shutil.copy2(file, commands_dest / file.name)
-            print(f"✓ Copied command: {file.name}")
+            print_success(f"Copied command: {file.name}")
 
     # Create/update settings.local.json
     create_or_update_settings(claude_dir)
@@ -128,7 +181,7 @@ def init_project() -> None:
     config_path = learning_dir / "config.json"
     with open(config_path, "w") as f:
         json.dump(config, f, indent=2)
-    print(f"✓ Created config.json (macOS Reminders: {'enabled' if macos_reminders else 'disabled'})")
+    print_success(f"Created config.json (macOS Reminders: {'enabled' if macos_reminders else 'disabled'})")
 
     # Copy scripts
     scripts_dest = learning_dir / "scripts"
@@ -137,7 +190,7 @@ def init_project() -> None:
     if scripts_src.exists():
         for file in scripts_src.glob("*.py"):
             shutil.copy2(file, scripts_dest / file.name)
-            print(f"✓ Copied script: {file.name}")
+            print_success(f"Copied script: {file.name}")
 
     # Copy references
     references_dest = learning_dir / "references"
@@ -146,45 +199,29 @@ def init_project() -> None:
     if references_src.exists():
         for file in references_src.glob("*.md"):
             shutil.copy2(file, references_dest / file.name)
-            print(f"✓ Copied reference: {file.name}")
+            print_success(f"Copied reference: {file.name}")
 
     # Copy CLAUDE.md to project root
     claude_md_src = templates_dir / "CLAUDE.md"
     claude_md_dest = cwd / "CLAUDE.md"
     if claude_md_src.exists() and not claude_md_dest.exists():
         shutil.copy2(claude_md_src, claude_md_dest)
-        print(f"✓ Copied CLAUDE.md to project root")
+        print_success("Copied CLAUDE.md to project root")
     elif claude_md_dest.exists():
-        print(f"⚠  CLAUDE.md already exists, skipping")
+        print_warning("CLAUDE.md already exists, skipping")
 
-    print("\n✅ Learn FASTER initialization complete!\n")
-    print("📁 Created structure:")
-    print("   .claude/")
-    print("   ├── agents/practice-creator.md")
-    print("   ├── output-styles/learn-faster.md")
-    print("   ├── commands/")
-    print("   │   ├── learn.md")
-    print("   │   ├── review.md")
-    print("   │   └── progress.md")
-    print("   └── settings.local.json")
+    print(f"\n{Colors.GREEN}{Colors.BOLD}Initialization complete!{Colors.RESET}\n")
+
+    print_header("How to use:")
+    print_dim("  1. Restart Claude Code to load new commands and output style")
+    print_dim("  2. Start learning with: " + f"{Colors.CYAN}/learn \"Your Topic\"{Colors.RESET}")
+    print_dim("  3. Available commands:")
+    print(f"     {Colors.CYAN}/learn [topic]{Colors.RESET}    - Initialize or continue learning")
+    print(f"     {Colors.CYAN}/review{Colors.RESET}           - Spaced repetition review session")
+    print(f"     {Colors.CYAN}/progress{Colors.RESET}         - Show detailed progress report")
     print()
-    print("   .learning/")
-    print("   ├── scripts/")
-    print("   │   ├── init_learning.py")
-    print("   │   ├── log_progress.py")
-    print("   │   ├── review_scheduler.py")
-    print("   │   └── generate_syllabus.py")
-    print("   └── references/")
-    print("       └── faster_framework.md")
+    print_info("The 'learn-faster' output style is auto-activated for coaching mode.")
     print()
-    print("   CLAUDE.md")
-    print()
-    print("🎯 Next steps:")
-    print("   1. Restart Claude Code to load new commands and style")
-    print("   2. The 'learn-faster' output style is auto-activated")
-    print("   3. Run: /learn \"Your Topic Name\"")
-    print()
-    print("Happy learning! 🚀📚")
 
 
 def main() -> None:

@@ -1,6 +1,6 @@
 # Learn FASTER
 
-> Accelerate learning with the FASTER framework - spaced repetition, progress tracking, and hands-on practice using AI agent
+> Accelerate learning with the FASTER framework - spaced repetition, progress tracking, and hands-on practice using AI agent.
 
 **[Claude Code](https://claude.com/claude-code) Only** - This tool currently integrates with Claude Code's commands, agents, and output styles system.
 
@@ -83,16 +83,16 @@ your-project/
     learn-faster init
     ```
 
-2. **Start Claude Code** to load new commands and output style
+2. **Start Claude Code**
 
 3. **Start learning**
     ```bash
-    /learn "React Hooks"
+    /learn Golang
     ```
 
 ## Commands
 
--   `/learn [topic]` - Initialize or continue learning a topic
+-   `/learn [topic]` - Initialize or continue learning
 -   `/review` - Conduct spaced repetition review session
 -   `/progress` - Show detailed progress report
 
