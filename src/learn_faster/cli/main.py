@@ -251,7 +251,7 @@ def init_project() -> None:
     print()
 
 
-def launch_coach() -> None:
+def launch_coach(auto_review: bool = False) -> None:
     """Launch Claude Code with learn-faster system prompt."""
     import subprocess
 
@@ -288,11 +288,13 @@ def launch_coach() -> None:
     print_info("Launching Claude Code in learning coach mode...")
     print_dim("(Using FASTER framework system prompt)\n")
 
+    # Build command with optional /review prefix
+    cmd = ["claude", "--system-prompt", system_prompt]
+    if auto_review:
+        cmd.extend(["/review"])
+
     try:
-        subprocess.run(
-            ["claude", "--system-prompt", system_prompt],
-            check=False
-        )
+        subprocess.run(cmd, check=False)
     except FileNotFoundError:
         print_error("Error: 'claude' command not found")
         print_dim("Make sure Claude Code CLI is installed and in your PATH")
@@ -335,11 +337,11 @@ def main() -> None:
         print()
         print_header("Launching Claude Code with FASTER framework...")
         print()
+        launch_coach(auto_review=False)
     else:
         print_info("Launching Claude Code in learning coach mode...")
-        print()
-
-    launch_coach()
+        print_dim("(Starting with /review to check for due reviews)\n")
+        launch_coach(auto_review=True)
 
 
 if __name__ == "__main__":
