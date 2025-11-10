@@ -151,7 +151,7 @@ jobs:
           EOF
 
           # Call OpenRouter API
-          python3 << 'PYSCRIPT'
+          uv run python3 << 'PYSCRIPT'
           import requests
           import os
 
