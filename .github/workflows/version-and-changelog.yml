@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       version_bump:
-        description: 'Version bump type'
+        description: "Version bump type"
         required: true
-        default: 'patch'
+        default: "patch"
         type: choice
         options:
           - patch
@@ -26,13 +26,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for changelog generation
+          fetch-depth: 0 # Full history for changelog generation
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install uv
         run: |
@@ -52,9 +52,21 @@ jobs:
             echo "bump_type=${{ github.event.inputs.version_bump }}" >> $GITHUB_OUTPUT
           else
             # Auto-detect based on conventional commits
-            git log --pretty=format:"%s" $(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~10)..HEAD > commits.txt
+            # Get the last tag, or use the first commit if no tags exist
+            LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
 
-            if grep -E "^(feat|feature):" commits.txt; then
+            if [ -n "$LAST_TAG" ]; then
+              # Get commits since last tag
+              git log --pretty=format:"%s" ${LAST_TAG}..HEAD > commits.txt 2>/dev/null || true
+            else
+              # Get recent commits (up to 10) if no tags exist
+              git log --pretty=format:"%s" -n 10 > commits.txt 2>/dev/null || true
+            fi
+
+            # Default to patch if no commits or file doesn't exist
+            if [ ! -s commits.txt ]; then
+              echo "bump_type=patch" >> $GITHUB_OUTPUT
+            elif grep -E "^(feat|feature):" commits.txt; then
               echo "bump_type=minor" >> $GITHUB_OUTPUT
             elif grep -E "^(fix|bug):" commits.txt; then
               echo "bump_type=patch" >> $GITHUB_OUTPUT
@@ -151,7 +163,7 @@ jobs:
                   'Content-Type': 'application/json'
               },
               json={
-                  'model': 'anthropic/claude-3-haiku-20240307',
+                  'model': 'x-ai/grok-code-fast-1',
                   'messages': [
                       {
                           'role': 'user',
