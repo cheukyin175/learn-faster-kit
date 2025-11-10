@@ -194,7 +194,7 @@ def main() -> None:
         print("Usage:")
         print("  uvx learn-faster init    Initialize in current project")
         print()
-        print("For more info: https://github.com/yourusername/learn-faster")
+        print("For more info: https://github.com/cheukyin175/learn-faster-kit")
         sys.exit(0)
 
     command = sys.argv[1]

@@ -7,9 +7,9 @@ name = "learn-faster"
 version = "1.0.0"
 description = "Learn FASTER: Accelerate learning with spaced repetition, active practice, and teaching-based retention"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.12"
 authors = [
-    { name = "Hugo", email = "hugo@example.com" }
+    { name = "Hugo Lau", email = "cheukyin175@gmail.com" }
 ]
 keywords = ["learning", "education", "spaced-repetition", "claude", "ai"]
 classifiers = [
@@ -17,20 +17,16 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Education",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 [project.scripts]
 learn-faster = "learn_faster.cli.main:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/learn-faster"
-Repository = "https://github.com/yourusername/learn-faster"
-Issues = "https://github.com/yourusername/learn-faster/issues"
+Homepage = "https://github.com/cheukyin175/learn-faster-kit"
+Repository = "https://github.com/cheukyin175/learn-faster-kit"
+Issues = "https://github.com/cheukyin175/learn-faster-kit/issues"
 
 [tool.uv]
 dev-dependencies = []
