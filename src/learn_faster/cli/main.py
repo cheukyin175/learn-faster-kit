@@ -89,8 +89,21 @@ def create_or_update_settings(claude_dir: Path) -> None:
                 "Write(.learning/**)",
                 "Write(**/*.md)",
                 "Read(**/*.md)"
+            ],
+            "deny": [
+                "Bash(rm -rf *)",
+                "Bash(curl *)",
+                "Read(.env)",
+                "Read(.env.*)",
+                "Write(.env)",
+                "Write(.env.*)"
             ]
-        }
+        },
+        "companyAnnouncements": [
+            "🚀 Learn FASTER is active! Use /learn \"Topic\" to start learning",
+            "💡 Tip: Use /review to conduct spaced repetition reviews",
+            "📊 Check your progress anytime with /progress"
+        ]
     }
 
     if settings_file.exists():
@@ -109,6 +122,18 @@ def create_or_update_settings(claude_dir: Path) -> None:
             for perm in default_settings["permissions"]["allow"]:
                 if perm not in settings["permissions"]["allow"]:
                     settings["permissions"]["allow"].append(perm)
+
+            # Merge permissions deny list
+            if "deny" not in settings["permissions"]:
+                settings["permissions"]["deny"] = []
+
+            for perm in default_settings["permissions"]["deny"]:
+                if perm not in settings["permissions"]["deny"]:
+                    settings["permissions"]["deny"].append(perm)
+
+        # Add company announcements if not present
+        if "companyAnnouncements" not in settings:
+            settings["companyAnnouncements"] = default_settings["companyAnnouncements"]
 
         print_success(f"Updated {settings_file}")
     else:
