@@ -50,14 +50,20 @@ def log_progress(topic_slug: str, content: str, concepts_learned: list = None, b
             f.write("\n")
 
     # Output structured JSON for LLM parsing
+    directive = ""
+    if concepts_learned:
+        directive = f"1. Add these concepts to review schedule: {concepts_learned}. Use 'python3 .learning/scripts/review_scheduler.py add {topic_slug} <concept>' for each.\n2. After adding concepts, run 'python3 .learning/scripts/concept_quiz.py generate {topic_slug}' to generate a quick quiz on least-reviewed concepts."
+    else:
+        directive = f"No new concepts to add. Run 'python3 .learning/scripts/concept_quiz.py generate {topic_slug}' to quiz on existing concepts."
+
     output = {
         "status": "success",
         "session_number": metadata['total_sessions'],
         "concepts_logged": concepts_learned if concepts_learned else [],
         "total_sessions": metadata['total_sessions'],
-        "next_action": "add_to_review_schedule" if concepts_learned else "none",
-        "llm_directive": f"Add these concepts to review schedule: {concepts_learned}. Use 'python3 .learning/scripts/review_scheduler.py add {topic_slug} <concept>' for each." if concepts_learned else "No new concepts to add to review schedule.",
-        "suggested_response": f"✅ Session {metadata['total_sessions']} logged!" + (f" Added {len(concepts_learned)} concept(s) to track." if concepts_learned else "") + " What would you like to learn next?"
+        "next_action": "add_to_review_schedule_and_quiz" if concepts_learned else "quiz_only",
+        "llm_directive": directive,
+        "suggested_response": f"Session {metadata['total_sessions']} logged!" + (f" Added {len(concepts_learned)} concept(s) to track." if concepts_learned else "")
     }
 
     print(json.dumps(output, indent=2))
