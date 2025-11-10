@@ -1,0 +1,222 @@
+name: Version Update and Changelog Generation
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  version-and-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for changelog generation
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Get current version
+        id: current_version
+        run: |
+          CURRENT_VERSION=$(grep -E '^version\s*=' pyproject.toml | sed 's/version\s*=\s*["\'']//g' | sed 's/["\'']//g')
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Determine version bump type
+        id: version_bump
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "bump_type=${{ github.event.inputs.version_bump }}" >> $GITHUB_OUTPUT
+          else
+            # Auto-detect based on conventional commits
+            git log --pretty=format:"%s" $(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~10)..HEAD > commits.txt
+
+            if grep -E "^(feat|feature):" commits.txt; then
+              echo "bump_type=minor" >> $GITHUB_OUTPUT
+            elif grep -E "^(fix|bug):" commits.txt; then
+              echo "bump_type=patch" >> $GITHUB_OUTPUT
+            elif grep -E "^(BREAKING CHANGE|breaking):" commits.txt; then
+              echo "bump_type=major" >> $GITHUB_OUTPUT
+            else
+              echo "bump_type=patch" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Calculate new version
+        id: new_version
+        run: |
+          CURRENT="${{ steps.current_version.outputs.current_version }}"
+          BUMP="${{ steps.version_bump.outputs.bump_type }}"
+
+          IFS='.' read -r major minor patch <<< "$CURRENT"
+
+          case $BUMP in
+            major)
+              major=$((major + 1))
+              minor=0
+              patch=0
+              ;;
+            minor)
+              minor=$((minor + 1))
+              patch=0
+              ;;
+            patch)
+              patch=$((patch + 1))
+              ;;
+          esac
+
+          NEW_VERSION="$major.$minor.$patch"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "Next version: $NEW_VERSION"
+
+      - name: Update version in files
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.new_version }}"
+
+          # Update pyproject.toml
+          sed -i "s/version = \".*\"/version = \"$NEW_VERSION\"/" pyproject.toml
+
+          # Update __init__.py
+          sed -i "s/__version__ = \".*\"/__version__ = \"$NEW_VERSION\"/" src/learn_faster/__init__.py
+
+          echo "Updated version to $NEW_VERSION"
+
+      - name: Generate changelog with OpenRouter
+        id: changelog
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          # Get commits since last tag or 10 commits if no tags
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -n "$LAST_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"%h|%s|%b" ${LAST_TAG}..HEAD)
+          else
+            COMMITS=$(git log --pretty=format:"%h|%s|%b" -10)
+          fi
+
+          # Create prompt for Claude via OpenRouter
+          cat > claude_prompt.txt << EOF
+          Please generate a changelog entry for version ${{ steps.new_version.outputs.new_version }} based on the following commits:
+
+          $COMMITS
+
+          Format the changelog in markdown with these sections:
+          - ## [${{ steps.new_version.outputs.new_version }}] - $(date +%Y-%m-%d)
+          - ### Added (for feat: commits)
+          - ### Fixed (for fix: commits)
+          - ### Changed (for refactor: commits)
+          - ### Documentation (for docs: commits)
+
+          Make the descriptions user-friendly and concise. Group similar changes together.
+          If there are breaking changes, clearly mark them with ⚠️.
+          EOF
+
+          # Call OpenRouter API
+          python3 << 'PYSCRIPT'
+          import requests
+          import os
+
+          with open('claude_prompt.txt', 'r') as f:
+              prompt = f.read()
+
+          response = requests.post(
+              'https://openrouter.ai/api/v1/chat/completions',
+              headers={
+                  'Authorization': f'Bearer {os.environ["OPENROUTER_API_KEY"]}',
+                  'HTTP-Referer': 'https://github.com/cheukyin175/learn-faster-kit',
+                  'X-Title': 'Learn Faster Kit',
+                  'Content-Type': 'application/json'
+              },
+              json={
+                  'model': 'anthropic/claude-3-haiku-20240307',
+                  'messages': [
+                      {
+                          'role': 'user',
+                          'content': prompt
+                      }
+                  ],
+                  'max_tokens': 1000,
+                  'temperature': 0.3
+              }
+          )
+
+          if response.status_code == 200:
+              changelog_entry = response.json()['choices'][0]['message']['content']
+              with open('changelog_entry.md', 'w') as f:
+                  f.write(changelog_entry)
+              print("Changelog generated successfully via OpenRouter")
+          else:
+              print(f"Error: {response.status_code}")
+              print(response.text)
+              exit(1)
+          PYSCRIPT
+
+      - name: Update CHANGELOG.md
+        run: |
+          # Create CHANGELOG.md if it doesn't exist
+          if [ ! -f CHANGELOG.md ]; then
+            echo "# Changelog" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            echo "All notable changes to this project will be documented in this file." >> CHANGELOG.md
+            echo "" >> CHANGELOG.md
+          fi
+
+          # Add new entry at the top (after header)
+          TEMP_FILE=$(mktemp)
+          head -n 3 CHANGELOG.md > $TEMP_FILE
+          echo "" >> $TEMP_FILE
+          cat changelog_entry.md >> $TEMP_FILE
+          echo "" >> $TEMP_FILE
+          tail -n +4 CHANGELOG.md >> $TEMP_FILE
+          mv $TEMP_FILE CHANGELOG.md
+
+          echo "Updated CHANGELOG.md"
+
+      - name: Create version commit and tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          git add pyproject.toml src/learn_faster/__init__.py CHANGELOG.md
+          git commit -m "chore: bump version to ${{ steps.new_version.outputs.new_version }}"
+
+          git tag -a "v${{ steps.new_version.outputs.new_version }}" -m "Release v${{ steps.new_version.outputs.new_version }}"
+
+      - name: Push changes and tag
+        run: |
+          git push origin main
+          git push origin "v${{ steps.new_version.outputs.new_version }}"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ steps.new_version.outputs.new_version }}"
+          release_name: "Release v${{ steps.new_version.outputs.new_version }}"
+          body_path: changelog_entry.md
+          draft: false
+          prerelease: false
