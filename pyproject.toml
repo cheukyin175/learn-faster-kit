@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "learn-faster"
-version = "1.0.0"
+version = "0.1.0"
 description = "Learn FASTER: Accelerate learning with spaced repetition, active practice, and teaching-based retention"
 readme = "README.md"
 requires-python = ">=3.12"
