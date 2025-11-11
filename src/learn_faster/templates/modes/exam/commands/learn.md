@@ -4,101 +4,100 @@ description: Initialize a new learning topic $topic for exam preparation using t
 
 ## Context
 
--   Learning directory: !`ls -d .learning 2>/dev/null`
--   Current topic: !`ls .learning/ 2>/dev/null`
+- Current topic: !`ls .learning/ 2>/dev/null | grep -v scripts`
 
-**Note:** If `.learning/` doesn't exist, you'll initialize it. If it exists, check the topic folder name (ignore `scripts/`).
+**Note:** The `.learning/` directory is already initialized. Check the topic folder name (ignore `scripts/`).
 
 ## Your Task
 
 Initialize exam-focused learning for the specified topic using the FASTER framework.
 
-**If `.learning/` exists:**
+**If a topic already exists:**
 
--   Inform: "This project is already learning [topic name]"
--   Check for due reviews first (conduct before new learning if any)
--   Continue with current topic (1 project = 1 learning goal)
+- Inform: "This project is already learning [topic name]"
+- Check for due reviews first (conduct before new learning if any)
+- Continue with current topic (1 project = 1 learning goal)
 
-**If `.learning/` doesn't exist:**
+**If no topic exists yet:**
 
 1. **Gather exam preferences** with `AskUserQuestion` based on users selected topic:
    <example>
 
 ```json
 [
-    {
-        "question": "What's your target for this exam/certification?",
-        "header": "Goal",
-        "multiSelect": false,
-        "options": [
-            {
-                "label": "Pass minimum",
-                "description": "Just need to pass, 70%+ score"
-            },
-            {
-                "label": "Pass comfortably",
-                "description": "Aiming for 80-85%"
-            },
-            {
-                "label": "High score",
-                "description": "Want 90%+ or top percentile"
-            },
-            {
-                "label": "Perfect score",
-                "description": "Going for 100% mastery"
-            }
-        ]
-    },
-    {
-        "question": "When is your exam?",
-        "header": "Timeline",
-        "multiSelect": false,
-        "options": [
-            {
-                "label": "1-2 weeks",
-                "description": "Intensive cramming mode"
-            },
-            {
-                "label": "1 month",
-                "description": "Focused preparation"
-            },
-            {
-                "label": "2-3 months",
-                "description": "Steady build-up"
-            },
-            {
-                "label": "3+ months",
-                "description": "Long-term mastery"
-            },
-            {
-                "label": "No deadline",
-                "description": "Self-paced learning"
-            }
-        ]
-    },
-    {
-        "question": "What study methods work best for you?",
-        "header": "Methods",
-        "multiSelect": true,
-        "options": [
-            {
-                "label": "Practice tests",
-                "description": "Mock exams and timed quizzes"
-            },
-            {
-                "label": "Flashcards",
-                "description": "Spaced repetition drills"
-            },
-            {
-                "label": "Problem solving",
-                "description": "Work through examples and cases"
-            },
-            {
-                "label": "Teach-back",
-                "description": "Explain concepts in my own words"
-            }
-        ]
-    }
+  {
+    "question": "What's your target for this exam/certification?",
+    "header": "Goal",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Pass minimum",
+        "description": "Just need to pass, 70%+ score"
+      },
+      {
+        "label": "Pass comfortably",
+        "description": "Aiming for 80-85%"
+      },
+      {
+        "label": "High score",
+        "description": "Want 90%+ or top percentile"
+      },
+      {
+        "label": "Perfect score",
+        "description": "Going for 100% mastery"
+      }
+    ]
+  },
+  {
+    "question": "When is your exam?",
+    "header": "Timeline",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "1-2 weeks",
+        "description": "Intensive cramming mode"
+      },
+      {
+        "label": "1 month",
+        "description": "Focused preparation"
+      },
+      {
+        "label": "2-3 months",
+        "description": "Steady build-up"
+      },
+      {
+        "label": "3+ months",
+        "description": "Long-term mastery"
+      },
+      {
+        "label": "No deadline",
+        "description": "Self-paced learning"
+      }
+    ]
+  },
+  {
+    "question": "What study methods work best for you?",
+    "header": "Methods",
+    "multiSelect": true,
+    "options": [
+      {
+        "label": "Practice tests",
+        "description": "Mock exams and timed quizzes"
+      },
+      {
+        "label": "Flashcards",
+        "description": "Spaced repetition drills"
+      },
+      {
+        "label": "Problem solving",
+        "description": "Work through examples and cases"
+      },
+      {
+        "label": "Teach-back",
+        "description": "Explain concepts in my own words"
+      }
+    ]
+  }
 ]
 ```
 
@@ -113,27 +112,27 @@ Initialize exam-focused learning for the specified topic using the FASTER framew
 
 **Exam-Oriented Syllabus Structure:**
 
--   **Exam Overview:** Format, sections, time limits, passing score, common difficulty areas
--   **High-Yield Topics:** Topics most likely to appear (based on exam blueprint/frequency)
--   **Study Schedule:** Week-by-week plan based on their timeline
--   **Learning Phases:** Organized by exam sections or topic domains
-    -   Each phase has: concepts to master + practice questions + mock test
-    -   Include ✅ checkboxes for tracking
--   **Practice Strategy:**
-    -   Quick quizzes after each concept
-    -   Section practice tests mid-phase
-    -   Full mock exams at end of phase
--   **Weak Area Tracking:** System to identify and prioritize review topics
--   **Success Criteria:** Target scores for each section
+- **Exam Overview:** Format, sections, time limits, passing score, common difficulty areas
+- **High-Yield Topics:** Topics most likely to appear (based on exam blueprint/frequency)
+- **Study Schedule:** Week-by-week plan based on their timeline
+- **Learning Phases:** Organized by exam sections or topic domains
+  - Each phase has: concepts to master + practice questions + mock test
+  - Include ✅ checkboxes for tracking
+- **Practice Strategy:**
+  - Quick quizzes after each concept
+  - Section practice tests mid-phase
+  - Full mock exams at end of phase
+- **Weak Area Tracking:** System to identify and prioritize review topics
+- **Success Criteria:** Target scores for each section
 
 **Important:**
 
--   Generate comprehensive exam-focused syllabi (not minimal)
--   Include realistic practice test schedule
--   Map content to actual exam format/blueprint if available
--   Build in review cycles (spaced repetition)
--   Include time management strategies
--   Add confidence-building milestones
+- Generate comprehensive exam-focused syllabus (not minimal)
+- Include realistic practice test schedule
+- Map content to actual exam format/blueprint if available
+- Build in review cycles (spaced repetition)
+- Include time management strategies
+- Add confidence-building milestones
 
 ## After Syllabus Generation
 
@@ -185,6 +184,7 @@ Initialize exam-focused learning for the specified topic using the FASTER framew
 ## Practice Creator Integration
 
 After each concept, invoke @practice-creator to generate:
+
 - Quick recall quiz (5-10 questions)
 - Concept-specific practice set
 - Mock exam questions in actual format
@@ -192,6 +192,7 @@ After each concept, invoke @practice-creator to generate:
 ## Score Tracking
 
 Maintain `.learning/<topic-slug>/scores.json`:
+
 ```json
 {
   "baseline": {
@@ -199,11 +200,9 @@ Maintain `.learning/<topic-slug>/scores.json`:
     "score": 0.65,
     "weak_areas": ["topic1", "topic3"]
   },
-  "daily_quizzes": [
-    {"date": "2025-01-11", "topic": "topic1", "score": 0.70}
-  ],
+  "daily_quizzes": [{ "date": "2025-01-11", "topic": "topic1", "score": 0.7 }],
   "practice_tests": [
-    {"date": "2025-01-12", "score": 0.75, "time_taken": "45min"}
+    { "date": "2025-01-12", "score": 0.75, "time_taken": "45min" }
   ]
 }
 ```

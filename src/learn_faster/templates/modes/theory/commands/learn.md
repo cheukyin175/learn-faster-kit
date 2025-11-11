@@ -4,97 +4,96 @@ description: Initialize a new learning topic $topic for deep conceptual understa
 
 ## Context
 
--   Learning directory: !`ls -d .learning 2>/dev/null`
--   Current topic: !`ls .learning/ 2>/dev/null`
+- Current topic: !`ls .learning/ 2>/dev/null | grep -v scripts`
 
-**Note:** If `.learning/` doesn't exist, you'll initialize it. If it exists, check the topic folder name (ignore `scripts/`).
+**Note:** The `.learning/` directory is already initialized. Check the topic folder name (ignore `scripts/`).
 
 ## Your Task
 
 Initialize theory-focused learning for the specified topic using the FASTER framework.
 
-**If `.learning/` exists:**
+**If a topic already exists:**
 
--   Inform: "This project is already learning [topic name]"
--   Check for due reviews first (conduct before new learning if any)
--   Continue with current topic (1 project = 1 learning goal)
+- Inform: "This project is already learning [topic name]"
+- Check for due reviews first (conduct before new learning if any)
+- Continue with current topic (1 project = 1 learning goal)
 
-**If `.learning/` doesn't exist:**
+**If no topic exists yet:**
 
 1. **Gather learning preferences** with `AskUserQuestion` based on users selected topic:
    <example>
 
 ```json
 [
-    {
-        "question": "What depth of understanding do you want?",
-        "header": "Depth",
-        "multiSelect": false,
-        "options": [
-            {
-                "label": "Foundational",
-                "description": "Core concepts and basic intuition"
-            },
-            {
-                "label": "Intermediate",
-                "description": "How and why things work internally"
-            },
-            {
-                "label": "Deep",
-                "description": "First principles and mathematical foundations"
-            },
-            {
-                "label": "Expert",
-                "description": "Research-level understanding, cutting edge"
-            }
-        ]
-    },
-    {
-        "question": "What's your learning style for concepts?",
-        "header": "Style",
-        "multiSelect": true,
-        "options": [
-            {
-                "label": "Analogies",
-                "description": "Learn through comparisons and metaphors"
-            },
-            {
-                "label": "First principles",
-                "description": "Build up from fundamental truths"
-            },
-            {
-                "label": "Visual models",
-                "description": "Diagrams and visual representations"
-            },
-            {
-                "label": "Historical context",
-                "description": "Why this was invented, evolution of ideas"
-            }
-        ]
-    },
-    {
-        "question": "What are you trying to achieve?",
-        "header": "Goal",
-        "multiSelect": false,
-        "options": [
-            {
-                "label": "Understand deeply",
-                "description": "Build robust mental models"
-            },
-            {
-                "label": "Research",
-                "description": "Foundation for further study"
-            },
-            {
-                "label": "Teach others",
-                "description": "Explain clearly to others"
-            },
-            {
-                "label": "Pure curiosity",
-                "description": "Just want to know how it works"
-            }
-        ]
-    }
+  {
+    "question": "What depth of understanding do you want?",
+    "header": "Depth",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Foundational",
+        "description": "Core concepts and basic intuition"
+      },
+      {
+        "label": "Intermediate",
+        "description": "How and why things work internally"
+      },
+      {
+        "label": "Deep",
+        "description": "First principles and mathematical foundations"
+      },
+      {
+        "label": "Expert",
+        "description": "Research-level understanding, cutting edge"
+      }
+    ]
+  },
+  {
+    "question": "What's your learning style for concepts?",
+    "header": "Style",
+    "multiSelect": true,
+    "options": [
+      {
+        "label": "Analogies",
+        "description": "Learn through comparisons and metaphors"
+      },
+      {
+        "label": "First principles",
+        "description": "Build up from fundamental truths"
+      },
+      {
+        "label": "Visual models",
+        "description": "Diagrams and visual representations"
+      },
+      {
+        "label": "Historical context",
+        "description": "Why this was invented, evolution of ideas"
+      }
+    ]
+  },
+  {
+    "question": "What are you trying to achieve?",
+    "header": "Goal",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Understand deeply",
+        "description": "Build robust mental models"
+      },
+      {
+        "label": "Research",
+        "description": "Foundation for further study"
+      },
+      {
+        "label": "Teach others",
+        "description": "Explain clearly to others"
+      },
+      {
+        "label": "Pure curiosity",
+        "description": "Just want to know how it works"
+      }
+    ]
+  }
 ]
 ```
 
@@ -109,26 +108,26 @@ Initialize theory-focused learning for the specified topic using the FASTER fram
 
 **Theory-Focused Syllabus Structure:**
 
--   **Conceptual Overview:** Big picture, why this topic matters, key questions it answers
--   **Prerequisites:** Concepts you should understand first (with explanations)
--   **Core Principles:** The 3-5 fundamental truths everything else builds from
--   **Learning Journey:** Organized by conceptual building blocks
-    -   Each phase: concept → intuition → first principles → mental model → connections
-    -   Include 🤔 thought experiments and 📊 visualization exercises
-    -   Include ✅ checkboxes for "I can explain this simply"
--   **Concept Map:** How all ideas connect (visual representation in text)
--   **Deep Dive Topics:** Optional advanced areas for curious learners
--   **Common Misconceptions:** What people get wrong and why
--   **Success Criteria:** "I can explain X from first principles" not "I memorized X"
+- **Conceptual Overview:** Big picture, why this topic matters, key questions it answers
+- **Prerequisites:** Concepts you should understand first (with explanations)
+- **Core Principles:** The 3-5 fundamental truths everything else builds from
+- **Learning Journey:** Organized by conceptual building blocks
+  - Each phase: concept → intuition → first principles → mental model → connections
+  - Include 🤔 thought experiments and 📊 visualization exercises
+  - Include ✅ checkboxes for "I can explain this simply"
+- **Concept Map:** How all ideas connect (visual representation in text)
+- **Deep Dive Topics:** Optional advanced areas for curious learners
+- **Common Misconceptions:** What people get wrong and why
+- **Success Criteria:** "I can explain X from first principles" not "I memorized X"
 
 **Important:**
 
--   Generate comprehensive concept maps (not just lists)
--   Include "why" for every concept (not just "what")
--   Build logical progression (each concept builds on previous)
--   Add thought experiments for testing understanding
--   Include edge cases and boundary conditions
--   Connect to related concepts across domains
+- Generate comprehensive concept maps (not just lists)
+- Include "why" for every concept (not just "what")
+- Build logical progression (each concept builds on previous)
+- Add thought experiments for testing understanding
+- Include edge cases and boundary conditions
+- Connect to related concepts across domains
 
 ## After Syllabus Generation
 
@@ -198,6 +197,7 @@ Initialize theory-focused learning for the specified topic using the FASTER fram
 ## Practice Creator Integration
 
 After each concept, invoke @practice-creator to generate:
+
 - Thought experiments
 - "Explain like I'm 5" challenges
 - Edge case exploration exercises
@@ -212,26 +212,32 @@ Maintain `.learning/<topic-slug>/understanding.md`:
 ## Concept: [Name]
 
 ### My Explanation (without looking):
+
 [User's explanation in own words]
 
 ### My Mental Model:
+
 [Analogy or visual representation]
 
 ### What I'm Still Unsure About:
+
 - [Question 1]
 - [Question 2]
 
 ### Connections I See:
+
 - Links to [other concept]
 - Similar to [analogy]
 
 ### Last Reviewed: [Date]
+
 ### Confidence: [1-10]
 ```
 
 ## Visualization Prompts
 
 For each major concept, help user create:
+
 - Conceptual diagrams
 - Flow charts of logic
 - Comparison tables
@@ -242,6 +248,7 @@ Store in `.learning/<topic-slug>/diagrams/`
 ## Deep Dive Sessions
 
 Periodically offer:
+
 - "Want to explore [advanced topic]?"
 - "Let's examine an edge case"
 - "What if we question this assumption?"
@@ -250,6 +257,7 @@ Periodically offer:
 ## Success Indicators
 
 User is succeeding when they:
+
 - Explain concepts simply without jargon
 - Create accurate analogies spontaneously
 - Ask "why" questions independently
@@ -261,6 +269,7 @@ User is succeeding when they:
 ## Teaching Moments
 
 Regular prompts:
+
 - "Explain this to a non-technical friend"
 - "What's the one-sentence core idea?"
 - "Draw a picture of how this works"

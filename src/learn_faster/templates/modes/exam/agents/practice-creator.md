@@ -56,6 +56,7 @@ Test immediate recall of recent concepts.
 **Passing Score:** 70%
 
 ### Instructions
+
 - Answer all questions without looking at notes
 - Mark questions you're unsure about
 - Review incorrect answers carefully
@@ -79,6 +80,7 @@ d) [Option D]
 2. **Correct:** [Expected answer] - [Explanation]
 
 ### Score Analysis
+
 - 9-10: Excellent retention
 - 7-8: Good, review missed items
 - 5-6: Needs more study
@@ -100,6 +102,7 @@ Comprehensive test covering multiple concepts.
 **Passing Score:** 70%
 
 ### Test-Taking Strategy
+
 1. First pass: Answer all easy questions (30 min)
 2. Second pass: Tackle difficult questions (20 min)
 3. Final review: Check marked questions (10 min)
@@ -123,6 +126,7 @@ Comprehensive test covering multiple concepts.
 ### Section C: Essay/Long Form (2 questions)
 
 **Question 36:** [Complex scenario requiring synthesis of multiple concepts]
+
 - Expected length: 250-300 words
 - Key points to cover: [List]
 
@@ -131,22 +135,21 @@ Comprehensive test covering multiple concepts.
 ### Answer Key & Explanations
 
 **Section A:**
+
 1. **B** - [Detailed explanation including why other options are wrong]
 
-**Section B:**
-31. **Expected Answer:** [Full answer with key points]
-    **Scoring Rubric:**
-    - Key point 1 (2 pts)
-    - Key point 2 (2 pts)
-    - Correct application (1 pt)
+**Section B:** 31. **Expected Answer:** [Full answer with key points]
+**Scoring Rubric:** - Key point 1 (2 pts) - Key point 2 (2 pts) - Correct application (1 pt)
 
 ### Performance Analysis
 
 **By Topic:**
+
 - [Topic 1]: Questions 1-10
 - [Topic 2]: Questions 11-20
 
 **By Difficulty:**
+
 - Easy: Questions [list]
 - Medium: Questions [list]
 - Hard: Questions [list]
@@ -154,6 +157,7 @@ Comprehensive test covering multiple concepts.
 ### Study Recommendations
 
 If you scored <70% on:
+
 - [Topic area]: Review [specific sections]
 - [Question type]: Practice [specific skill]
 ```
@@ -171,6 +175,7 @@ Cards for active recall practice.
 **Review Schedule:** Day 1, 3, 7, 14, 30
 
 ### How to Use
+
 1. Read question side
 2. Try to recall answer completely
 3. Check answer side
@@ -186,6 +191,7 @@ Cards for active recall practice.
 **Front:** [Concept question or term]
 
 **Back:**
+
 - **Definition:** [Clear explanation]
 - **Why it matters:** [Context]
 - **Common mistake:** [Pitfall to avoid]
@@ -203,10 +209,10 @@ Cards for active recall practice.
 
 ### Review Log
 
-Date: ____
-Cards reviewed: ____
-Easy: ____ Medium: ____ Hard: ____
-Cards to review tomorrow: ____
+Date: \_**\_
+Cards reviewed: \_\_**
+Easy: \_**\_ Medium: \_\_** Hard: \_**\_
+Cards to review tomorrow: \_\_**
 ```
 
 ### Type 4: Concept Comparison Matrix
@@ -221,10 +227,10 @@ Compare and contrast related concepts (common exam trap).
 Fill in this matrix, then check your answers:
 
 | Concept | Definition | Use Case | Advantages | Disadvantages | Example |
-|---------|-----------|----------|------------|---------------|---------|
-| [A] | | | | | |
-| [B] | | | | | |
-| [C] | | | | | |
+| ------- | ---------- | -------- | ---------- | ------------- | ------- |
+| [A]     |            |          |            |               |         |
+| [B]     |            |          |            |               |         |
+| [C]     |            |          |            |               |         |
 
 ### Answer Key
 

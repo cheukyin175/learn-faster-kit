@@ -4,74 +4,73 @@ description: Initialize a new learning topic $topic or continue learning an exis
 
 ## Context
 
--   Learning directory: !`ls -d .learning 2>/dev/null`
--   Current topic: !`ls .learning/ 2>/dev/null`
+- Current topic: !`ls .learning/ 2>/dev/null | grep -v scripts`
 
-**Note:** If `.learning/` doesn't exist, you'll initialize it. If it exists, check the topic folder name (ignore `scripts/`).
+**Note:** The `.learning/` directory is already initialized. Check the topic folder name (ignore `scripts/`).
 
 ## Your Task
 
 Initialize learning for the specified topic using the FASTER framework.
 
-**If `.learning/` exists:**
+**If a topic already exists:**
 
--   Inform: "This project is already learning [topic name]"
--   Check for due reviews first (conduct before new learning if any)
--   Continue with current topic (1 project = 1 learning goal)
+- Inform: "This project is already learning [topic name]"
+- Check for due reviews first (conduct before new learning if any)
+- Continue with current topic (1 project = 1 learning goal)
 
-**If `.learning/` doesn't exist:**
+**If no topic exists yet:**
 
 1. **Gather learning preferences** with `AskUserQuestion` base on users selected topic:
    <example>
 
 ```json
 [
-    {
-        "question": "What level do you want to achieve with [topic]?",
-        "header": "Level",
-        "multiSelect": false,
-        "options": [
-            {
-                "label": "Beginner",
-                "description": "Fundamentals and basic concepts"
-            },
-            {
-                "label": "Intermediate",
-                "description": "Practical skills and common patterns"
-            },
-            {
-                "label": "Advanced",
-                "description": "Deep expertise and edge cases"
-            },
-            {
-                "label": "Expert",
-                "description": "Mastery level, architecture, optimization"
-            }
-        ]
-    },
-    {
-        "question": "What do you want to focus on?",
-        "header": "Focus",
-        "multiSelect": true,
-        "options": [
-            {
-                "label": "Theory",
-                "description": "Concepts, principles, how things work"
-            },
-            {
-                "label": "Practice",
-                "description": "Hands-on coding and building projects"
-            },
-            {
-                "label": "Real-world",
-                "description": "Production patterns and best practices"
-            },
-            {
-                "label": "Interview prep",
-                "description": "Common questions and problem-solving"
-            }
-        ]
-    }
+  {
+    "question": "What level do you want to achieve with [topic]?",
+    "header": "Level",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Beginner",
+        "description": "Fundamentals and basic concepts"
+      },
+      {
+        "label": "Intermediate",
+        "description": "Practical skills and common patterns"
+      },
+      {
+        "label": "Advanced",
+        "description": "Deep expertise and edge cases"
+      },
+      {
+        "label": "Expert",
+        "description": "Mastery level, architecture, optimization"
+      }
+    ]
+  },
+  {
+    "question": "What do you want to focus on?",
+    "header": "Focus",
+    "multiSelect": true,
+    "options": [
+      {
+        "label": "Theory",
+        "description": "Concepts, principles, how things work"
+      },
+      {
+        "label": "Practice",
+        "description": "Hands-on coding and building projects"
+      },
+      {
+        "label": "Real-world",
+        "description": "Production patterns and best practices"
+      },
+      {
+        "label": "Interview prep",
+        "description": "Common questions and problem-solving"
+      }
+    ]
+  }
 ]
 ```
 
@@ -86,11 +85,11 @@ Initialize learning for the specified topic using the FASTER framework.
 
 **Follow the template structure:**
 
--   All sections from the template file (Overview, Prerequisites, Learning Objectives, etc.)
--   3-4 Phases with specific concepts + 🔨 hands-on projects
--   Checkboxes `- [ ]` for tracking progress
+- All sections from the template file (Overview, Prerequisites, Learning Objectives, etc.)
+- 3-4 Phases with specific concepts + 🔨 hands-on projects
+- Checkboxes `- [ ]` for tracking progress
 
 **Important:**
 
--   Generate comprehensive syllabi (not minimal)
--   Include hands-on practice in every phase
+- Generate comprehensive syllabi (not minimal)
+- Include hands-on practice in every phase

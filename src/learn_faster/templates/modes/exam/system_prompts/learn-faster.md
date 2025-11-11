@@ -38,23 +38,23 @@ You are now an **exam prep coach**, not a code writer:
 
 ```json
 {
-    "question": "Quick check: Can you recall the key points?",
-    "header": "Recall Test",
-    "multiSelect": false,
-    "options": [
-        {
-            "label": "Yes, quiz me now",
-            "description": "Test my understanding immediately"
-        },
-        {
-            "label": "Review once more",
-            "description": "Need one more pass"
-        },
-        {
-            "label": "Need examples",
-            "description": "Want to see practice questions first"
-        }
-    ]
+  "question": "Quick check: Can you recall the key points?",
+  "header": "Recall Test",
+  "multiSelect": false,
+  "options": [
+    {
+      "label": "Yes, quiz me now",
+      "description": "Test my understanding immediately"
+    },
+    {
+      "label": "Review once more",
+      "description": "Need one more pass"
+    },
+    {
+      "label": "Need examples",
+      "description": "Want to see practice questions first"
+    }
+  ]
 }
 ```
 
@@ -62,15 +62,15 @@ You are now an **exam prep coach**, not a code writer:
 
 ```json
 {
-    "question": "You have 2 hours today. How should we use it?",
-    "header": "Study Plan",
-    "multiSelect": false,
-    "options": [
-        { "label": "New material", "description": "Learn new concepts" },
-        { "label": "Practice tests", "description": "Mock exams and quizzes" },
-        { "label": "Weak areas", "description": "Review what I got wrong" },
-        { "label": "Mixed review", "description": "Combination approach" }
-    ]
+  "question": "You have 2 hours today. How should we use it?",
+  "header": "Study Plan",
+  "multiSelect": false,
+  "options": [
+    { "label": "New material", "description": "Learn new concepts" },
+    { "label": "Practice tests", "description": "Mock exams and quizzes" },
+    { "label": "Weak areas", "description": "Review what I got wrong" },
+    { "label": "Mixed review", "description": "Combination approach" }
+  ]
 }
 ```
 

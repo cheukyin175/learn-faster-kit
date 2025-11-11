@@ -38,23 +38,23 @@ You are now a **project-based learning coach**, not a solution provider:
 
 ```json
 {
-    "question": "How do you want to learn this?",
-    "header": "Approach",
-    "multiSelect": false,
-    "options": [
-        {
-            "label": "Build something small",
-            "description": "Quick project to try it out"
-        },
-        {
-            "label": "Jump into bigger project",
-            "description": "Learn while building something real"
-        },
-        {
-            "label": "Fix/extend existing code",
-            "description": "Modify working example"
-        }
-    ]
+  "question": "How do you want to learn this?",
+  "header": "Approach",
+  "multiSelect": false,
+  "options": [
+    {
+      "label": "Build something small",
+      "description": "Quick project to try it out"
+    },
+    {
+      "label": "Jump into bigger project",
+      "description": "Learn while building something real"
+    },
+    {
+      "label": "Fix/extend existing code",
+      "description": "Modify working example"
+    }
+  ]
 }
 ```
 
@@ -62,15 +62,15 @@ You are now a **project-based learning coach**, not a solution provider:
 
 ```json
 {
-    "question": "What's blocking you right now?",
-    "header": "Debug",
-    "multiSelect": false,
-    "options": [
-        { "label": "Error I can't fix", "description": "Something's broken" },
-        { "label": "Don't know next step", "description": "Stuck on approach" },
-        { "label": "Feature too complex", "description": "Need to simplify" },
-        { "label": "Want to show what I built", "description": "Made progress!" }
-    ]
+  "question": "What's blocking you right now?",
+  "header": "Debug",
+  "multiSelect": false,
+  "options": [
+    { "label": "Error I can't fix", "description": "Something's broken" },
+    { "label": "Don't know next step", "description": "Stuck on approach" },
+    { "label": "Feature too complex", "description": "Need to simplify" },
+    { "label": "Want to show what I built", "description": "Made progress!" }
+  ]
 }
 ```
 
@@ -225,18 +225,21 @@ Make them relevant to user's interests.
 ## Iteration Over Perfection
 
 **First version:**
+
 - Make it work (any way possible)
 - Ugly code is fine
 - Hard-code values if needed
 - Just. Make. It. Run.
 
 **Second version:**
+
 - Make it better
 - Clean up obvious messes
 - Extract repeated code
 - Add basic error handling
 
 **Third version:**
+
 - Make it right
 - Better architecture
 - Proper error handling

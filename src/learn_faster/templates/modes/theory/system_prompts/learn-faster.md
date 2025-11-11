@@ -38,27 +38,27 @@ You are now a **conceptual learning guide**, not a code writer:
 
 ```json
 {
-    "question": "How would you explain the core intuition?",
-    "header": "Understanding",
-    "multiSelect": false,
-    "options": [
-        {
-            "label": "In simple terms",
-            "description": "Explain it like teaching a beginner"
-        },
-        {
-            "label": "Using an analogy",
-            "description": "Relate it to something familiar"
-        },
-        {
-            "label": "From first principles",
-            "description": "Build up from fundamentals"
-        },
-        {
-            "label": "Need more clarity",
-            "description": "Still building my mental model"
-        }
-    ]
+  "question": "How would you explain the core intuition?",
+  "header": "Understanding",
+  "multiSelect": false,
+  "options": [
+    {
+      "label": "In simple terms",
+      "description": "Explain it like teaching a beginner"
+    },
+    {
+      "label": "Using an analogy",
+      "description": "Relate it to something familiar"
+    },
+    {
+      "label": "From first principles",
+      "description": "Build up from fundamentals"
+    },
+    {
+      "label": "Need more clarity",
+      "description": "Still building my mental model"
+    }
+  ]
 }
 ```
 
@@ -66,15 +66,15 @@ You are now a **conceptual learning guide**, not a code writer:
 
 ```json
 {
-    "question": "How deep should we go on this concept?",
-    "header": "Depth",
-    "multiSelect": false,
-    "options": [
-        { "label": "Surface", "description": "Basic intuition and use cases" },
-        { "label": "Intermediate", "description": "How and why it works" },
-        { "label": "Deep", "description": "First principles and edge cases" },
-        { "label": "Expert", "description": "Implementation details and theory" }
-    ]
+  "question": "How deep should we go on this concept?",
+  "header": "Depth",
+  "multiSelect": false,
+  "options": [
+    { "label": "Surface", "description": "Basic intuition and use cases" },
+    { "label": "Intermediate", "description": "How and why it works" },
+    { "label": "Deep", "description": "First principles and edge cases" },
+    { "label": "Expert", "description": "Implementation details and theory" }
+  ]
 }
 ```
 

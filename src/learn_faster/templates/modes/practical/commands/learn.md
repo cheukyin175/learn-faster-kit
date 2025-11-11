@@ -4,97 +4,96 @@ description: Initialize a new learning topic $topic through building real projec
 
 ## Context
 
--   Learning directory: !`ls -d .learning 2>/dev/null`
--   Current topic: !`ls .learning/ 2>/dev/null`
+- Current topic: !`ls .learning/ 2>/dev/null | grep -v scripts`
 
-**Note:** If `.learning/` doesn't exist, you'll initialize it. If it exists, check the topic folder name (ignore `scripts/`).
+**Note:** The `.learning/` directory is already initialized. Check the topic folder name (ignore `scripts/`).
 
 ## Your Task
 
 Initialize project-based learning for the specified topic using the FASTER framework.
 
-**If `.learning/` exists:**
+**If a topic already exists:**
 
--   Inform: "This project is already learning [topic name]"
--   Check for due reviews first (conduct before new learning if any)
--   Continue with current topic (1 project = 1 learning goal)
+- Inform: "This project is already learning [topic name]"
+- Check for due reviews first (conduct before new learning if any)
+- Continue with current topic (1 project = 1 learning goal)
 
-**If `.learning/` doesn't exist:**
+**If no topic exists yet:**
 
 1. **Gather project preferences** with `AskUserQuestion` based on users selected topic:
    <example>
 
 ```json
 [
-    {
-        "question": "What kind of projects do you want to build?",
-        "header": "Projects",
-        "multiSelect": true,
-        "options": [
-            {
-                "label": "Quick demos",
-                "description": "Small examples to try concepts (30 min)"
-            },
-            {
-                "label": "Useful tools",
-                "description": "Things you'll actually use (2-3 hours)"
-            },
-            {
-                "label": "Portfolio pieces",
-                "description": "Projects to showcase skills"
-            },
-            {
-                "label": "Solve my problems",
-                "description": "Build solutions to real issues I have"
-            }
-        ]
-    },
-    {
-        "question": "How do you learn best by doing?",
-        "header": "Style",
-        "multiSelect": false,
-        "options": [
-            {
-                "label": "Follow then build",
-                "description": "See example, then build my own"
-            },
-            {
-                "label": "Build from scratch",
-                "description": "Figure it out as I go"
-            },
-            {
-                "label": "Fix/extend code",
-                "description": "Start with working code, modify it"
-            },
-            {
-                "label": "Copy-paste-understand",
-                "description": "Get it working, then understand how"
-            }
-        ]
-    },
-    {
-        "question": "How much time per session?",
-        "header": "Time",
-        "multiSelect": false,
-        "options": [
-            {
-                "label": "30 min",
-                "description": "Quick focused builds"
-            },
-            {
-                "label": "1-2 hours",
-                "description": "Complete small projects"
-            },
-            {
-                "label": "Half day",
-                "description": "Deep project sessions"
-            },
-            {
-                "label": "Flexible",
-                "description": "Depends on the day"
-            }
-        ]
-    }
+  {
+    "question": "What kind of projects do you want to build?",
+    "header": "Projects",
+    "multiSelect": true,
+    "options": [
+      {
+        "label": "Quick demos",
+        "description": "Small examples to try concepts (30 min)"
+      },
+      {
+        "label": "Useful tools",
+        "description": "Things you'll actually use (2-3 hours)"
+      },
+      {
+        "label": "Portfolio pieces",
+        "description": "Projects to showcase skills"
+      },
+      {
+        "label": "Solve my problems",
+        "description": "Build solutions to real issues I have"
+      }
+    ]
+  },
+  {
+    "question": "How do you learn best by doing?",
+    "header": "Style",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Follow then build",
+        "description": "See example, then build my own"
+      },
+      {
+        "label": "Build from scratch",
+        "description": "Figure it out as I go"
+      },
+      {
+        "label": "Fix/extend code",
+        "description": "Start with working code, modify it"
+      },
+      {
+        "label": "Copy-paste-understand",
+        "description": "Get it working, then understand how"
+      }
+    ]
+  },
+  {
+    "question": "How much time per session?",
+    "header": "Time",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "30 min",
+        "description": "Quick focused builds"
+      },
+      {
+        "label": "1-2 hours",
+        "description": "Complete small projects"
+      },
+      {
+        "label": "Half day",
+        "description": "Deep project sessions"
+      },
+      {
+        "label": "Flexible",
+        "description": "Depends on the day"
+      }
+    ]
+  }
 ]
 ```
 
@@ -109,27 +108,27 @@ Initialize project-based learning for the specified topic using the FASTER frame
 
 **Practical Syllabus Structure:**
 
--   **What You'll Build:** Clear list of tangible projects (with screenshots/descriptions if possible)
--   **Prerequisites:** Tools to install, basic setup needed
--   **Quick Start:** "Build your first [thing] in 15 minutes"
--   **Project Progression:** Organized by complexity
-    -   **Phase 1 - Micro Projects:** (30 min each) - Learn single concepts by building tiny things
-    -   **Phase 2 - Mini Projects:** (2-3 hours each) - Integrate 2-3 concepts into useful tools
-    -   **Phase 3 - Real Projects:** (Ongoing) - Build something you'll actually use/deploy
-    -   Each project has: 🎯 What you'll build, 🔨 Steps, ✅ Working demo criteria
--   **Common Gotchas:** Errors you'll hit and how to fix them
--   **Iteration Path:** How to improve projects (v1 → v2 → v3)
--   **Portfolio Checkpoints:** Projects good enough to showcase
--   **Success Criteria:** "I shipped X working projects" not "I read about X"
+- **What You'll Build:** Clear list of tangible projects (with screenshots/descriptions if possible)
+- **Prerequisites:** Tools to install, basic setup needed
+- **Quick Start:** "Build your first [thing] in 15 minutes"
+- **Project Progression:** Organized by complexity
+  - **Phase 1 - Micro Projects:** (30 min each) - Learn single concepts by building tiny things
+  - **Phase 2 - Mini Projects:** (2-3 hours each) - Integrate 2-3 concepts into useful tools
+  - **Phase 3 - Real Projects:** (Ongoing) - Build something you'll actually use/deploy
+  - Each project has: 🎯 What you'll build, 🔨 Steps, ✅ Working demo criteria
+- **Common Gotchas:** Errors you'll hit and how to fix them
+- **Iteration Path:** How to improve projects (v1 → v2 → v3)
+- **Portfolio Checkpoints:** Projects good enough to showcase
+- **Success Criteria:** "I shipped X working projects" not "I read about X"
 
 **Important:**
 
--   Generate practical, buildable project ideas (not theoretical)
--   Include clear "Definition of Done" for each project
--   Provide starter code or templates when helpful
--   Map to real-world use cases
--   Include debugging/troubleshooting tips
--   Focus on shipping, not perfection
+- Generate practical, buildable project ideas (not theoretical)
+- Include clear "Definition of Done" for each project
+- Provide starter code or templates when helpful
+- Map to real-world use cases
+- Include debugging/troubleshooting tips
+- Focus on shipping, not perfection
 
 ## After Syllabus Generation
 
@@ -195,6 +194,7 @@ Initialize project-based learning for the specified topic using the FASTER frame
 ## Practice Creator Integration
 
 Use @practice-creator to generate:
+
 - Project starter templates
 - Feature ideas and specifications
 - Debugging challenges ("fix this broken code")
@@ -213,24 +213,30 @@ Maintain `.learning/<topic-slug>/projects.md`:
 **Status:** ✅ Working / 🚧 In Progress / 💡 Idea
 
 ### What It Does:
+
 [1-2 sentence description]
 
 ### What I Learned:
+
 - [Concept or skill gained]
 - [Challenge overcome]
 
 ### Code:
+
 [Path to code or key snippets]
 
 ### What Broke & How I Fixed It:
+
 - **Problem:** [Error or issue]
   **Solution:** [How I solved it]
 
 ### Next Steps / v2 Ideas:
+
 - [ ] [Enhancement 1]
 - [ ] [Enhancement 2]
 
 ### Demo/Screenshot:
+
 [Link or description]
 ```
 
@@ -259,18 +265,22 @@ Keep a running list in `.learning/<topic-slug>/ideas.md`:
 ## Project Ideas
 
 ### Quick Wins (30 min):
+
 - [ ] [Micro project 1]
 - [ ] [Micro project 2]
 
 ### Useful Tools (2-3 hours):
+
 - [ ] [Mini project 1]
 - [ ] [Mini project 2]
 
 ### Portfolio Pieces:
+
 - [ ] [Real project 1]
 - [ ] [Real project 2]
 
 ### Wild Ideas:
+
 - [ ] [Ambitious project]
 ```
 
@@ -279,18 +289,21 @@ User adds their own ideas too!
 ## Iteration Philosophy
 
 **v1 - Make it work:**
+
 - Any way possible
 - Ugly code is fine
 - Hard-code values
 - Just ship SOMETHING
 
 **v2 - Make it better:**
+
 - Clean up obvious messes
 - Extract repeated code
 - Better variable names
 - Basic error handling
 
 **v3 - Make it right:**
+
 - Proper architecture
 - Edge case handling
 - Tests if needed
@@ -301,6 +314,7 @@ Don't aim for v3 on first try - ship fast, iterate.
 ## Success Indicators
 
 User is succeeding when they:
+
 - Ships working code regularly
 - Debugs errors confidently
 - Improves projects iteratively
