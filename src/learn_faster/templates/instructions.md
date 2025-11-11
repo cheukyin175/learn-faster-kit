@@ -1,8 +1,4 @@
-# FASTER Learning System - Project Instructions
-
-**This file contains script usage protocols for managing learning in this project.**
-
-**Note:** To use the FASTER framework coaching, run: `uvx learn-faster coach`
+# FASTER Learning System - Instructions
 
 ## System Overview
 
@@ -42,14 +38,6 @@ project-root/
         ├── review_schedule.json
         └── mastery.md
 ```
-
-## Available Commands
-
--   `/learn [topic]` - Initialize or continue learning
--   `/review` - Conduct spaced repetition reviews
--   `/progress` - Show detailed progress report
-
-Commands automatically check context and guide you through the session.
 
 ## Session Protocol
 
@@ -91,13 +79,12 @@ All scripts are in `.learning/scripts/`. Run from project root.
 
 **User action:** `/learn "Topic Name"`
 
-**Script (auto-run by command):**
+**Flow:**
 
 ```bash
 python3 .learning/scripts/init_learning.py "<Topic Name>" .learning
 ```
 
-Returns JSON with `next_action: "generate_syllabus"`
 → **Action:** Create comprehensive syllabus tailored to user's level and focus
 
 ### Log Progress
@@ -106,7 +93,6 @@ Returns JSON with `next_action: "generate_syllabus"`
 python3 .learning/scripts/log_progress.py <topic-slug> "<summary>" [concept1] [concept2]
 ```
 
-Returns JSON with `next_action: "add_to_review_schedule"`
 → **Action:** Add each concept to review schedule
 
 ### Review Management
@@ -155,7 +141,7 @@ python3 .learning/scripts/generate_syllabus.py info <topic-slug>
 ## Workflow Pattern
 
 ```
-[RUN SCRIPT] → [PARSE JSON] → [EXECUTE DIRECTIVE] → [RESPOND TO USER]
+[RUN SCRIPT] → [EXECUTE DIRECTIVE] → [RESPOND TO USER]
 ```
 
 ## Generating Syllabus
@@ -221,10 +207,6 @@ tail -30 .learning/<topic-slug>/progress.md
 
 ## Key Principles for This System
 
-**For Claude (LLM):**
-
--   Commands in `.claude/commands/` handle workflow
--   Parse all script JSON output and follow directives
 -   Use `AskUserQuestion` to gather learning preferences
 -   Always prompt user to teach concepts back
 

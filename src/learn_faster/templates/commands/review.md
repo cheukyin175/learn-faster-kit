@@ -73,6 +73,4 @@ For each concept in review list:
 -   If still stuck: Review briefly, reschedule for tomorrow
 -   Reschedule: `python3 .learning/scripts/review_scheduler.py add <topic-slug> "[Concept]"`
 
-**Review intervals:** 1d → 3d → 7d → 14d → 30d → 60d → 90d
-
 **Key principle:** Active recall (user reconstructs from memory), not passive recognition

@@ -21,7 +21,7 @@ Initialize learning for the specified topic using the FASTER framework.
 
 **If `.learning/` doesn't exist:**
 
-1. **Gather learning preferences** with `AskUserQuestion`:
+1. **Gather learning preferences** with `AskUserQuestion` base on users selected topic:
    <example>
 
 ```json
