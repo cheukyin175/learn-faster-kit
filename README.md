@@ -1,25 +1,31 @@
 # Learn FASTER
 
-> Accelerate learning with the FASTER framework - spaced repetition, progress tracking, and hands-on practice using AI coaching.
+[![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
-**[Claude Code](https://claude.com/claude-code) Only** - This tool launches Claude Code with FASTER framework coaching mode.
+> AI-powered learning coach that accelerates mastery through spaced repetition, personalized syllabi, and active practice.
 
-## What is FASTER?
+**Built for [Claude Code](https://claude.com/claude-code)** - Integrates AI coaching directly into your development environment.
 
--   **F**orget: Beginner's mindset
--   **A**ct: Learn by doing
--   **S**tate: Optimize focus
--   **T**each: Explain to retain
--   **E**nter: Consistent sessions
--   **R**eview: Spaced repetition
+## Why Learn FASTER?
 
-## Features
+Master any technical skill with science-backed learning principles:
 
--   Auto-generated syllabi tailored to your level and goals
--   Spaced repetition review system
--   Progress tracking and reports
--   Practice exercise generation
--   Teaching-based retention prompts
+-   **Personalized syllabi** generated for your skill level and learning goals
+-   **Spaced repetition** system that schedules reviews at optimal intervals
+-   **Four learning modes** - choose Balanced, Exam-Prep, Theory-Focused, or Practical
+-   **Active practice** with auto-generated exercises and projects
+-   **Progress tracking** to visualize your learning journey
+
+## The FASTER Framework
+
+-   **F**orget: Beginner's mindset - approach topics with fresh perspective
+-   **A**ct: Learn by doing - hands-on practice over passive reading
+-   **S**tate: Optimize focus - create ideal learning conditions
+-   **T**teach: Explain to retain - teaching reinforces understanding
+-   **E**nter: Consistent sessions - regular practice builds momentum
+-   **R**eview: Spaced repetition - review at intervals for long-term retention
 
 ## Installation
 
@@ -80,40 +86,59 @@ your-project/
 
 ## Quick Start
 
-1. **Install the tool (one time)**
+1. **Install the tool**
 
     ```bash
     uv tool install learn-faster --from git+https://github.com/cheukyin175/learn-faster-kit.git
     ```
 
-2. **Navigate to your project and run**
+2. **Launch in any project directory**
 
     ```bash
     cd your-learning-project
     learn-faster
     ```
 
-    This will:
-    - Initialize the project structure (first time only)
-    - Launch Claude Code with FASTER coaching mode
-    - You're ready to start learning!
+    First run will:
 
-3. **Start learning with the `/learn` command**
+    - Prompt you to select a learning mode
+    - Initialize the project structure
+    - Launch Claude Code with FASTER coaching enabled
+
+3. **Start learning**
+
     ```bash
     /learn "Golang fundamentals"
     ```
 
-## CLI Commands
+    The AI coach will generate a personalized syllabus and guide your learning session.
 
--   `learn-faster` - Auto-init and launch Claude Code with coaching mode
--   `learn-faster init` - Force re-initialization
--   `learn-faster version` - Show version
+## Usage
 
-## Commands in Claude Code
+### CLI Commands
 
--   `/learn [topic]` - Initialize or continue learning a topic
--   `/review` - Conduct spaced repetition review session
--   `/progress` - Show detailed progress report
+-   `learn-faster` - Launch Claude Code with FASTER coaching (auto-initializes on first run)
+-   `learn-faster init` - Force re-initialization or switch learning modes
+-   `learn-faster version` - Show current version
+
+### Claude Code Slash Commands
+
+Once Claude Code is running, use these commands:
+
+-   `/learn [topic]` - Start or continue learning a topic with personalized syllabus
+-   `/review` - Spaced repetition review session for topics you've learned
+-   `/progress` - View detailed progress report and learning statistics
+
+## Learning Modes
+
+Choose the mode that fits your learning style:
+
+-   **Balanced** - Mix of theory, practice, and real-world application (recommended for most learners)
+-   **Exam-Prep** - Focused on recall, practice tests, and certification preparation
+-   **Theory-Focused** - Deep conceptual understanding with mental models and first principles
+-   **Practical** - Project-based learning with immediate application
+
+Each mode provides a tailored coaching experience with mode-specific syllabi and exercises.
 
 ## Development
 
@@ -131,16 +156,26 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 ```
 
+## Use Cases
+
+Learn FASTER is ideal for:
+
+-   Learning new programming languages (Go, Rust, Python, TypeScript, etc.)
+-   Preparing for technical certifications and exams
+-   Mastering frameworks and libraries (React, Next.js, Django, etc.)
+-   Building structured self-study programs
+-   Onboarding to new codebases or technologies
+
 ## Requirements
 
 -   Python 3.12+
 -   [Claude Code](https://claude.com/claude-code)
 -   [uv](https://docs.astral.sh/uv/) package manager
 
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
 ## License
 
 MIT License - See LICENSE file for details
-
----
-
-**Master any topic faster** with spaced repetition, active practice, and teaching-based reinforcement.
