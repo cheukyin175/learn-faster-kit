@@ -184,6 +184,7 @@ def init_project() -> None:
                 ('Exam-Oriented   - Focus on recall, practice tests, and certification prep', 'exam'),
                 ('Theory-Focused   - Deep conceptual understanding and mental models', 'theory'),
                 ('Practical        - Build projects immediately, learn by doing', 'practical'),
+                ('Programming      - Learn programming through building projects', 'programming'),
             ],
             default='balanced',
         ),
@@ -196,7 +197,8 @@ def init_project() -> None:
         "exam": "Exam-Oriented",
         "theory": "Theory-Focused",
         "practical": "Practical",
-        "balanced": "Balanced"
+        "balanced": "Balanced",
+        "programming": "Programming"
     }
     print_success(f"Selected: {mode_names[learning_mode]} mode\n")
 

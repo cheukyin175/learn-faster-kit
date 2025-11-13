@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2025-11-13
+
+### Added
+
+- Programming mode for learning programming through project-based approach
+- Project-focused practice-creator agent for programming mode
+- Programming-specific system prompt and learn command
+
+### Changed
+
+- Simplified practice-creator agents for balanced and practical modes
+- Reduced verbosity in practice templates
+
 ## [1.1.0] - 2025-11-11
 
 ### Features
