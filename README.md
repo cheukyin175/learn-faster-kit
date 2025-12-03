@@ -23,7 +23,7 @@ Master any technical skill with science-backed learning principles:
 -   **F**orget: Beginner's mindset - approach topics with fresh perspective
 -   **A**ct: Learn by doing - hands-on practice over passive reading
 -   **S**tate: Optimize focus - create ideal learning conditions
--   **T**teach: Explain to retain - teaching reinforces understanding
+-   **T**each: Explain to retain - teaching reinforces understanding
 -   **E**nter: Consistent sessions - regular practice builds momentum
 -   **R**eview: Spaced repetition - review at intervals for long-term retention
 
