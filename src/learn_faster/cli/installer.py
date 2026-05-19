@@ -50,7 +50,7 @@ def create_or_update_settings(agent_dir: Path) -> None:
             ],
         },
         "companyAnnouncements": [
-            "🚀 Learn FASTER is active! Use /learn \"Topic\" to start learning",
+            '🚀 Learn FASTER is active! Use /learn "Topic" to start learning',
         ],
     }
 
@@ -150,14 +150,26 @@ def init_project(agent_name: str | None = None) -> None:
             "mode",
             message="Choose your learning mode",
             choices=[
-                ("Balanced         - Mix of theory, practice, and application", "balanced"),
                 (
-                    "Exam-Oriented   - Printable exam papers, practice tests, and certification prep",
+                    "Balanced         均衡 - Mix of theory, practice, and application / 理论与实践的平衡",
+                    "balanced",
+                ),
+                (
+                    "Exam-Oriented    应试 - Printable exam papers, practice tests, and certification prep / 刷题与备考",
                     "exam",
                 ),
-                ("Theory-Focused   - Deep conceptual understanding and mental models", "theory"),
-                ("Practical        - Build projects immediately, learn by doing", "practical"),
-                ("Programming      - Learn programming through building projects", "programming"),
+                (
+                    "Theory-Focused   - Deep conceptual understanding and mental models",
+                    "theory",
+                ),
+                (
+                    "Practical        - Build projects immediately, learn by doing",
+                    "practical",
+                ),
+                (
+                    "Programming      - Learn programming through building projects",
+                    "programming",
+                ),
             ],
             default="balanced",
         ),
@@ -171,8 +183,12 @@ def init_project(agent_name: str | None = None) -> None:
     agent_dir.mkdir(exist_ok=True)
 
     mode_templates_dir = agent_templates_dir / "modes" / learning_mode
-    copy_markdown_templates(mode_templates_dir / "agents", agent_dir / "agents", "agent")
-    copy_markdown_templates(mode_templates_dir / "commands", agent_dir / "commands", "command")
+    copy_markdown_templates(
+        mode_templates_dir / "agents", agent_dir / "agents", "agent"
+    )
+    copy_markdown_templates(
+        mode_templates_dir / "commands", agent_dir / "commands", "command"
+    )
 
     if agent.supports_settings:
         create_or_update_settings(agent_dir)
@@ -212,7 +228,9 @@ def init_project(agent_name: str | None = None) -> None:
     instructions_dest = cwd / agent.instruction_file
     if instructions_src.exists() and not instructions_dest.exists():
         shutil.copy2(instructions_src, instructions_dest)
-        print_success(f"Copied instructions to {agent.instruction_file} in project root")
+        print_success(
+            f"Copied instructions to {agent.instruction_file} in project root"
+        )
     elif instructions_dest.exists():
         print_warning(f"{agent.instruction_file} already exists, skipping")
 
@@ -220,11 +238,23 @@ def init_project(agent_name: str | None = None) -> None:
 
     print_header(f"Available workflows in {agent.display_name}:")
     if agent.name == "claude-code":
-        print(f"  {Colors.CYAN}/learn [topic]{Colors.RESET}    - Initialize or continue learning")
-        print(f"  {Colors.CYAN}/review{Colors.RESET}           - Spaced repetition review session")
-        print(f"  {Colors.CYAN}/progress{Colors.RESET}         - Show detailed progress report")
+        print(
+            f"  {Colors.CYAN}/learn [topic]{Colors.RESET}    - Initialize or continue learning"
+        )
+        print(
+            f"  {Colors.CYAN}/review{Colors.RESET}           - Spaced repetition review session"
+        )
+        print(
+            f"  {Colors.CYAN}/progress{Colors.RESET}         - Show detailed progress report"
+        )
     else:
-        print(f"  {Colors.CYAN}Learn <topic>{Colors.RESET}      - Initialize or continue learning")
-        print(f"  {Colors.CYAN}Review{Colors.RESET}             - Run due spaced-repetition reviews")
-        print(f"  {Colors.CYAN}Progress{Colors.RESET}           - Summarize learning progress")
+        print(
+            f"  {Colors.CYAN}Learn <topic>{Colors.RESET}      - Initialize or continue learning"
+        )
+        print(
+            f"  {Colors.CYAN}Review{Colors.RESET}             - Run due spaced-repetition reviews"
+        )
+        print(
+            f"  {Colors.CYAN}Progress{Colors.RESET}           - Summarize learning progress"
+        )
     print()

@@ -73,7 +73,7 @@ def main() -> None:
         print()
         print_header("Launching configured agent with FASTER framework...")
         print()
-        launch_coach(auto_review=False)
+        launch_coach(auto_review=False, initialize=True)
     else:
         print_info("Launching configured agent in learning coach mode...")
         print_dim("(Starting with /review to check for due reviews)\n")

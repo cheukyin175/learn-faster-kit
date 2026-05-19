@@ -15,6 +15,7 @@ class AgentProfile:
     launch_style: str
     install_url: str
     supports_settings: bool = False
+    plan_mode_cmd: str = ""
 
 
 AGENT_PROFILES = {
@@ -27,6 +28,7 @@ AGENT_PROFILES = {
         launch_style="system-prompt",
         install_url="https://claude.ai/download",
         supports_settings=True,
+        plan_mode_cmd="--permission-mode plan",
     ),
     "codex": AgentProfile(
         name="codex",
@@ -36,6 +38,7 @@ AGENT_PROFILES = {
         instruction_file="AGENTS.md",
         launch_style="prompt",
         install_url="https://developers.openai.com/codex",
+        plan_mode_cmd="--enable collaboration_modes",
     ),
 }
 

@@ -55,7 +55,7 @@ def read_system_prompt(agent: AgentProfile, learning_mode: str) -> str:
     return "".join(content_lines).strip()
 
 
-def launch_coach(auto_review: bool = False) -> None:
+def launch_coach(auto_review: bool = False, initialize: bool = False) -> None:
     """Launch the configured agent with the learn-faster system prompt."""
     config = get_project_config()
     try:
@@ -72,6 +72,8 @@ def launch_coach(auto_review: bool = False) -> None:
 
     if agent.launch_style == "system-prompt":
         cmd = [agent.executable, "--system-prompt", system_prompt]
+        if initialize:
+            cmd.append(agent.plan_mode_cmd)
         if auto_review:
             cmd.extend(["/review"])
     elif agent.launch_style == "prompt":
@@ -80,7 +82,9 @@ def launch_coach(auto_review: bool = False) -> None:
             startup_prompt = f"{system_prompt}\n\nStart by checking for due reviews."
         cmd = [agent.executable, startup_prompt]
     else:
-        print_error(f"Unsupported launch style '{agent.launch_style}' for {agent.display_name}")
+        print_error(
+            f"Unsupported launch style '{agent.launch_style}' for {agent.display_name}"
+        )
         sys.exit(1)
 
     try:
