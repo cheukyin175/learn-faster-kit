@@ -3,11 +3,23 @@
 import json
 import subprocess
 import sys
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 
 from learn_faster.cli.agents import DEFAULT_AGENT, AgentProfile, get_agent_profile
 from learn_faster.cli.paths import get_agent_templates_dir
 from learn_faster.cli.ui import print_dim, print_error, print_info
+
+
+ResumeMode = Literal["last", "id", "pick"]
+
+
+@dataclass(frozen=True)
+class ResumeTarget:
+    mode: ResumeMode
+    session_id: str | None = None
+    fork: bool = False
 
 
 def get_project_config() -> dict:
@@ -87,6 +99,63 @@ def launch_coach(auto_review: bool = False, initialize: bool = False) -> None:
         )
         sys.exit(1)
 
+    _run_agent(cmd, agent)
+
+
+def build_resume_command(
+    agent: AgentProfile, system_prompt: str, target: ResumeTarget
+) -> list[str]:
+    """Construct the resume command line for a given agent profile."""
+    if agent.name == "claude-code":
+        cmd = [agent.executable, "--system-prompt", system_prompt]
+        if target.mode == "last":
+            cmd.append("--continue")
+        elif target.mode == "id":
+            assert target.session_id is not None
+            cmd.extend(["--resume", target.session_id])
+        else:
+            cmd.append("--resume")
+        if target.fork:
+            cmd.append("--fork-session")
+        return cmd
+
+    if agent.name == "codex":
+        verb = "fork" if target.fork else "resume"
+        cmd = [agent.executable, verb]
+        if target.mode == "last":
+            cmd.append("--last")
+        elif target.mode == "id":
+            assert target.session_id is not None
+            cmd.append(target.session_id)
+        return cmd
+
+    raise ValueError(f"Resume is not supported for agent '{agent.name}'")
+
+
+def resume_session(target: ResumeTarget) -> None:
+    """Resume a previous coaching session, preserving FASTER system prompt where required."""
+    config = get_project_config()
+    try:
+        agent = get_agent_profile(config.get("agent", DEFAULT_AGENT))
+    except ValueError as exc:
+        print_error(str(exc))
+        sys.exit(1)
+
+    learning_mode = config.get("learning_mode", "balanced")
+    # Claude rebuilds the system prompt from CLI flags on every turn (it is not
+    # persisted in the session JSONL). We re-pass it so the resumed session keeps
+    # FASTER coaching behavior. Codex persists the original first-user-turn prompt
+    # inside the transcript, so it does not need (and must not get) re-injection.
+    system_prompt = read_system_prompt(agent, learning_mode) if agent.name == "claude-code" else ""
+
+    print_info(f"Resuming {agent.display_name} session...")
+    print_dim(f"(Mode: {target.mode}{', fork' if target.fork else ''})\n")
+
+    cmd = build_resume_command(agent, system_prompt, target)
+    _run_agent(cmd, agent)
+
+
+def _run_agent(cmd: list[str], agent: AgentProfile) -> None:
     try:
         subprocess.run(cmd, check=False)
     except FileNotFoundError:

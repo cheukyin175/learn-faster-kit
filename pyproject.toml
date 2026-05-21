@@ -32,8 +32,10 @@ Homepage = "https://github.com/cheukyin175/learn-faster-kit"
 Repository = "https://github.com/cheukyin175/learn-faster-kit"
 Issues = "https://github.com/cheukyin175/learn-faster-kit/issues"
 
-[tool.uv]
-dev-dependencies = []
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
 
 [tool.hatch.build]
 exclude = [
