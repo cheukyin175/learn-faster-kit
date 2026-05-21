@@ -154,6 +154,7 @@ Coach: ✅ Great explanation! You nailed the key insight—wrapped errors
 -   `learn-faster` - Launch Claude Code with FASTER coaching (auto-initializes on first run)
 -   `learn-faster init` - Force re-initialization or switch learning modes
 -   `learn-faster init --agent codex` - Initialize the project for Codex instead of Claude Code
+-   `learn-faster resume [<id>] [--pick] [--fork]` - Resume a previous coaching session (`--pick` to choose interactively; `--fork` to branch into a new session id)
 -   `learn-faster version` - Show current version
 
 ### Claude Code Slash Commands
