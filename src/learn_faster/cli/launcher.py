@@ -85,7 +85,7 @@ def launch_coach(auto_review: bool = False, initialize: bool = False) -> None:
     if agent.launch_style == "system-prompt":
         cmd = [agent.executable, "--system-prompt", system_prompt]
         if initialize:
-            cmd.append(agent.plan_mode_cmd)
+            cmd.extend(agent.plan_mode_cmd.split())
         if auto_review:
             cmd.extend(["/review"])
     elif agent.launch_style == "prompt":
